@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -33,17 +33,22 @@
     position: relative;
     z-index: 1;
   }
-  p {
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
     margin-bottom: 1em;
   }
   .button {
-    display: inline-block;
+    display: none; /* Initially hide the buttons */
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
     margin-right: 10px;
+    cursor: pointer; /* Add cursor style for buttons */
   }
 </style>
 </head>
@@ -52,9 +57,40 @@
     <h1>下载页面</h1>
   </header>
   <div class="container">
-    <p>玛卡巴卡</p>
-    <a href="https://www.moepan.org/f/MGgRca/%E6%A0%91@%5B-25,59,-46%5D~%5B-23,58,-46%5D.mcworld" class="button">Android</a>
-    <a href="https://www.moepan.org/f/MGgRca/%E6%A0%91@%5B-25,59,-46%5D~%5B-23,58,-46%5D.mcworld" class="button">Windows</a>
+    <button class="button" id="Android">Android</button>
+    <button class="button" id="Windows">Windows</button>
   </div>
+
+  <!-- Download information script -->
+ <script>
+function checkReferrer() {
+  return document.referrer.indexOf("bbs.yuchen.icu") !== -1 ? true : false;
+}
+function startDownload(_0x3b3308) {
+  alert("下载已经开始，请耐心等待。");
+  window.location.href = _0x3b3308 + "&token=" + generateToken();
+}
+function generateToken() {
+  return Math.random().toString(36).substr(2);
+}
+var downloadButtons = {
+  "Android": {
+    "url": "https://www.moepan.org/f/MGgRca/%E6%A0%91@%5B-25,59,-46%5D~%5B-23,58,-46%5D.mcworld:0"
+  },
+  "Windows": {
+    "url": "https://www.moepan.org/f/MGgRca/%E6%A0%91@%5B-25,59,-46%5D~%5B-23,58,-46%5D.mcworld:0"
+  }
+};
+document.getElementById("Android").addEventListener("click", function () {
+  if (checkReferrer()) {
+    startDownload(downloadButtons.Android.url);
+  } else alert("非官方版"), window.location.href = "/none.html";
+});
+document.getElementById("Windows").addEventListener("click", function () {
+  checkReferrer() ? startDownload(downloadButtons.Windows.url) : (alert("非官方版"), window.location.href = "/none.html");
+});
+checkReferrer() ? (document.getElementById("Android").style.display = "inline-block", document.getElementById("Windows").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
+</script>
+
 </body>
 </html>
