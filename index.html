@@ -1,10 +1,10 @@
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-&lt;meta charset="UTF-8"&gt;
-&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-&lt;title&gt;下载页面&lt;/title&gt;
-&lt;style&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下载页面</title>
+<style>
   body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -50,35 +50,35 @@
     margin-right: 10px;
     cursor: pointer; /* Add cursor style for buttons */
   }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;header&gt;
-    &lt;h1&gt;下载页面&lt;/h1&gt;
-  &lt;/header&gt;
-  &lt;div class="container"&gt;
-    &lt;button class="button" id="Android"&gt;Android&lt;/button&gt;
-    &lt;button class="button" id="Windows"&gt;Windows&lt;/button&gt;
-  &lt;/div&gt;
+</style>
+</head>
+<body>
+  <header>
+    <h1>下载页面</h1>
+  </header>
+  <div class="container">
+    <button class="button" id="Android">Android</button>
+    <button class="button" id="Windows">Windows</button>
+  </div>
 
-  &lt;!-- Download information script --&gt;
- &lt;script&gt;
+  <!-- Download information script -->
+ <script>
 function checkReferrer() {
   return document.referrer.indexOf("bbs.yuchen.icu") !== -1 ? true : false;
 }
 function startDownload(_0x3b3308) {
   alert("下载已经开始，请耐心等待。");
-  window.location.href = _0x3b3308 + "&amp;token=" + generateToken();
+  window.location.href = _0x3b3308 + "&token=" + generateToken();
 }
 function generateToken() {
   return Math.random().toString(36).substr(2);
 }
 var downloadButtons = {
   "Android": {
-    "url": "https://pan.yhdzz.cn/f/VXUp/%5B%E8%8B%A6%E5%8A%9B%E6%80%95%E8%AE%BA%E5%9D%9B%5D%E7%8C%AB%E7%BE%BD%E9%9B%AB%E4%B8%BB%E9%A2%98%E6%89%A9%E5%B1%95%E5%8C%851.16x-1.17x-1.18x-1.19x.mcpack"
+    "url": "https%3A%2F%2Fpan.yhdzz.cn%2Ff%2FVXUp%2F%255B%25E8%258B%25A6%25E5%258A%259B%25E6%2580%2595%25E8%25AE%25BA%25E5%259D%259B%255D%25E7%258C%25AB%25E7%25BE%25BD%25E9%259B%25AB%25E4%25B8%25BB%25E9%25A2%2598%25E6%2589%25A9%25E5%25B1%2595%25E5%258C%25851.16x-1.17x-1.18x-1.19x.mcpack"
   },
   "Windows": {
-    "url": "https://pan.yhdzz.cn/f/VXUp/%5B%E8%8B%A6%E5%8A%9B%E6%80%95%E8%AE%BA%E5%9D%9B%5D%E7%8C%AB%E7%BE%BD%E9%9B%AB%E4%B8%BB%E9%A2%98%E6%89%A9%E5%B1%95%E5%8C%851.16x-1.17x-1.18x-1.19x.mcpack"
+    "url": "https%3A%2F%2Fpan.yhdzz.cn%2Ff%2FVXUp%2F%255B%25E8%258B%25A6%25E5%258A%259B%25E6%2580%2595%25E8%25AE%25BA%25E5%259D%259B%255D%25E7%258C%25AB%25E7%25BE%25BD%25E9%259B%25AB%25E4%25B8%25BB%25E9%25A2%2598%25E6%2589%25A9%25E5%25B1%2595%25E5%258C%25851.16x-1.17x-1.18x-1.19x.mcpack"
   }
 };
 document.getElementById("Android").addEventListener("click", function () {
@@ -90,7 +90,7 @@ document.getElementById("Windows").addEventListener("click", function () {
   checkReferrer() ? startDownload(downloadButtons.Windows.url) : (alert("非官方版"), window.location.href = "/none.html");
 });
 checkReferrer() ? (document.getElementById("Android").style.display = "inline-block", document.getElementById("Windows").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
-&lt;/script&gt;
+</script>
 
-&lt;/body&gt;
-&lt;/html&gt;
+</body>
+</html>
