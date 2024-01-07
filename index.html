@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YuChen-2.9.x下载</title>
+<title>下载页面</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -54,13 +54,11 @@
 </head>
 <body>
   <header>
-    <h1>YuChen-2.9.x下载</h1>
+    <h1>下载页面</h1>
   </header>
   <div class="container">
-    <button class="button" id="download32">下载32位基础版本</button>
-    <button class="button" id="download32pro">下载32位高级版本</button>
-    <button class="button" id="download64">下载64位基础版本</button>
-    <button class="button" id="download64pro">下载64位高级版本</button>
+    <button class="button" id="Android">Android</button>
+    <button class="button" id="Windows">Windows</button>
   </div>
 
   <!-- Download information script -->
@@ -76,11 +74,11 @@ function generateToken() {
   return Math.random().toString(36).substr(2);
 }
 var downloadButtons = {
-  "download32": {
-    "url": "https://storage.yuchen.icu/d/YOS3/%5B32%E5%9F%BA%E7%A1%80%5D%20YuChen_2.9.5.APK?sign=aUNGWaXOD2Bx6V2V1OTrzLwJy9Y534nQYuKuB4zr0J8=:0"
+  "Android": {
+    "url": "https://www.moepan.org/f/MGgRca/%E6%A0%91@%5B-25,59,-46%5D~%5B-23,58,-46%5D.mcworld"
   },
-  "download32pro": {
-    "url": "https://storage.yuchen.icu/d/YOS3/%5B32%E9%AB%98%E7%BA%A7%5D%20YuChen_2.9.5.APK?sign=-Uc91a6FKvX-sTwsjaTxbawwIXCFB85lpNlM04tc_60=:0"
+  "Windows": {
+    "url": "https://www.moepan.org/f/MGgRca/%E6%A0%91@%5B-25,59,-46%5D~%5B-23,58,-46%5D.mcworld"
   },
   "download64": {
     "url": "https://storage.yuchen.icu/d/YOS3/%5B64%E5%9F%BA%E7%A1%80%5D%20YuChen_2.9.5%20.APK?sign=MUCUAhLdk6xPevcVZ83JZFHb0rg45QQYcYLsxQqNSzk=:0"
@@ -89,13 +87,13 @@ var downloadButtons = {
     "url": "https://storage.yuchen.icu/d/YOS3/%5B64%E9%AB%98%E7%BA%A7%5D%20YuChen_2.9.5.APK?sign=an-L5qQ7--b70MZNgkbX9ildOGw5Ij2balaQmTWdYcE=:0"
   }
 };
-document.getElementById("download32").addEventListener("click", function () {
+document.getElementById("Android").addEventListener("click", function () {
   if (checkReferrer()) {
-    startDownload(downloadButtons.download32.url);
+    startDownload(downloadButtons.Android.url);
   } else alert("非官方版"), window.location.href = "/none.html";
 });
-document.getElementById("download32pro").addEventListener("click", function () {
-  checkReferrer() ? startDownload(downloadButtons.download32pro.url) : (alert("非官方版"), window.location.href = "/none.html");
+document.getElementById("Windows").addEventListener("click", function () {
+  checkReferrer() ? startDownload(downloadButtons.Windows.url) : (alert("非官方版"), window.location.href = "/none.html");
 });
 document.getElementById("download64").addEventListener("click", function () {
   checkReferrer() ? startDownload(downloadButtons.download64.url) : (alert("非官方版"), window.location.href = "/none.html");
@@ -103,7 +101,7 @@ document.getElementById("download64").addEventListener("click", function () {
 document.getElementById("download64pro").addEventListener("click", function () {
   checkReferrer() ? startDownload(downloadButtons.download64pro.url) : (alert("非官方版"), window.location.href = "/none.html");
 });
-checkReferrer() ? (document.getElementById("download32").style.display = "inline-block", document.getElementById("download32pro").style.display = "inline-block", document.getElementById("download64").style.display = "inline-block", document.getElementById("download64pro").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
+checkReferrer() ? (document.getElementById("Android").style.display = "inline-block", document.getElementById("Windows").style.display = "inline-block", document.getElementById("download64").style.display = "inline-block", document.getElementById("download64pro").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
 </script>
 
 </body>
