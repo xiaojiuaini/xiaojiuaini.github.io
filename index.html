@@ -79,12 +79,6 @@ var downloadButtons = {
   },
   "Windows": {
     "url": "https://www.moepan.org/f/MGgRca/%E6%A0%91@%5B-25,59,-46%5D~%5B-23,58,-46%5D.mcworld"
-  },
-  "download64": {
-    "url": "https://storage.yuchen.icu/d/YOS3/%5B64%E5%9F%BA%E7%A1%80%5D%20YuChen_2.9.5%20.APK?sign=MUCUAhLdk6xPevcVZ83JZFHb0rg45QQYcYLsxQqNSzk=:0"
-  },
-  "download64pro": {
-    "url": "https://storage.yuchen.icu/d/YOS3/%5B64%E9%AB%98%E7%BA%A7%5D%20YuChen_2.9.5.APK?sign=an-L5qQ7--b70MZNgkbX9ildOGw5Ij2balaQmTWdYcE=:0"
   }
 };
 document.getElementById("Android").addEventListener("click", function () {
@@ -94,12 +88,6 @@ document.getElementById("Android").addEventListener("click", function () {
 });
 document.getElementById("Windows").addEventListener("click", function () {
   checkReferrer() ? startDownload(downloadButtons.Windows.url) : (alert("非官方版"), window.location.href = "/none.html");
-});
-document.getElementById("download64").addEventListener("click", function () {
-  checkReferrer() ? startDownload(downloadButtons.download64.url) : (alert("非官方版"), window.location.href = "/none.html");
-});
-document.getElementById("download64pro").addEventListener("click", function () {
-  checkReferrer() ? startDownload(downloadButtons.download64pro.url) : (alert("非官方版"), window.location.href = "/none.html");
 });
 checkReferrer() ? (document.getElementById("Android").style.display = "inline-block", document.getElementById("Windows").style.display = "inline-block", document.getElementById("download64").style.display = "inline-block", document.getElementById("download64pro").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
 </script>
