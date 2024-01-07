@@ -1,0 +1,96 @@
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;title&gt;下载页面&lt;/title&gt;
+&lt;style&gt;
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: url('https://t.mwm.moe/mp') center/cover no-repeat;
+    background-size: cover;
+  }
+  header {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #333;
+    text-align: center;
+    padding: 1em;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    z-index: 2;
+  }
+  .container {
+    max-width: 400px; /* Adjust the max width */
+    margin: 50px auto; /* Center the content */
+    padding: 2em;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 1em;
+  }
+  .button {
+    display: none; /* Initially hide the buttons */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer; /* Add cursor style for buttons */
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;下载页面&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;div class="container"&gt;
+    &lt;button class="button" id="Android"&gt;Android&lt;/button&gt;
+    &lt;button class="button" id="Windows"&gt;Windows&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Download information script --&gt;
+ &lt;script&gt;
+function checkReferrer() {
+  return document.referrer.indexOf("bbs.yuchen.icu") !== -1 ? true : false;
+}
+function startDownload(_0x3b3308) {
+  alert("下载已经开始，请耐心等待。");
+  window.location.href = _0x3b3308 + "&amp;token=" + generateToken();
+}
+function generateToken() {
+  return Math.random().toString(36).substr(2);
+}
+var downloadButtons = {
+  "Android": {
+    "url": "https://pan.yhdzz.cn/f/VXUp/%5B%E8%8B%A6%E5%8A%9B%E6%80%95%E8%AE%BA%E5%9D%9B%5D%E7%8C%AB%E7%BE%BD%E9%9B%AB%E4%B8%BB%E9%A2%98%E6%89%A9%E5%B1%95%E5%8C%851.16x-1.17x-1.18x-1.19x.mcpack"
+  },
+  "Windows": {
+    "url": "https://pan.yhdzz.cn/f/VXUp/%5B%E8%8B%A6%E5%8A%9B%E6%80%95%E8%AE%BA%E5%9D%9B%5D%E7%8C%AB%E7%BE%BD%E9%9B%AB%E4%B8%BB%E9%A2%98%E6%89%A9%E5%B1%95%E5%8C%851.16x-1.17x-1.18x-1.19x.mcpack"
+  }
+};
+document.getElementById("Android").addEventListener("click", function () {
+  if (checkReferrer()) {
+    startDownload(downloadButtons.Android.url);
+  } else alert("非官方版"), window.location.href = "/none.html";
+});
+document.getElementById("Windows").addEventListener("click", function () {
+  checkReferrer() ? startDownload(downloadButtons.Windows.url) : (alert("非官方版"), window.location.href = "/none.html");
+});
+checkReferrer() ? (document.getElementById("Android").style.display = "inline-block", document.getElementById("Windows").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
