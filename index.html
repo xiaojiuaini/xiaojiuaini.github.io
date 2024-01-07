@@ -89,7 +89,7 @@ document.getElementById("Android").addEventListener("click", function () {
 document.getElementById("Windows").addEventListener("click", function () {
   checkReferrer() ? startDownload(downloadButtons.Windows.url) : (alert("非官方版"), window.location.href = "/none.html");
 });
-checkReferrer() ? (document.getElementById("Android").style.display = "inline-block", document.getElementById("Windows").style.display = "inline-block", document.getElementById("download64").style.display = "inline-block", document.getElementById("download64pro").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
+checkReferrer() ? (document.getElementById("Android").style.display = "inline-block", document.getElementById("Windows").style.display = "inline-block") : (alert("非官方版"), window.location.href = "/none.html");
 </script>
 
 </body>
