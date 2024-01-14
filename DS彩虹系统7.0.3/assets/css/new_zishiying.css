@@ -1,0 +1,107 @@
+.zishiying{
+    width: 100%!important;
+    display: flex;
+    height: 100%!important;
+    min-width: 430px;
+    min-height: 25px;
+}
+.zishiying_13{
+    width: 100%!important;
+    display: flex;
+    height: 100%!important;
+    flex-direction: column;
+}
+.flex_bet{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex_center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.zishiying >a{
+    width: 90%;
+}
+.zishiying #link_more{
+    width: 10%;
+    display: flex;
+    align-items: center;
+}
+.flex_column{flex-direction: column;}
+#mobile6,#mobile24,#mobile4,#mobile12,#mobile22,#mobile23,#mobile03,#mobile360,#mobile01,#mobile05,#mobile7,#mobile8,#mobile11,#mobile1,#mobile5,#mobile2,#mobile280{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+}
+#mobile4,#mobile360,#mobile01,#mobile05{
+    justify-content: space-between;
+}
+#mobile6 .mleft,#mobile22 .mleft,.zishiying_32 .wleft{
+    width: 10%;
+}
+#mobile24 .wtleft,#mobile12 .wtleft,#mobile23 .wtleft{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#mobile24 .wtname{
+    margin-top: 0;
+}
+#mobile6 .mright,#mobile24 >a,#mobile12 >a,#mobile22 .mright,.zishiying_32 >a{
+    width: 90%;
+}
+#mobile6 .mright a{
+    display: flex;
+    align-items: center;
+}
+#mobile6 .mright a .wt,#mobile24 >a .wt,#mobile12 >a .wt{
+    width: 33.33%;
+}
+#mobile05 .mright{
+    width: auto;
+}
+#mobile05 #day_1{
+    flex-direction: row;
+}
+#mobile22 .mright .wt,#mobile05 .mright .wt{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+#mobile05 .mright .wt{
+    align-items: center;
+}
+#mobile24 >a .wt,.zishiying_32 >a .wt{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mobile5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+    min-width: 200px;
+    min-height:30px ;
+}
+#mobile24{
+    min-width: 300px;
+    min-height:100px ;
+}
+#mobile23 >a{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+#mobile4 .wtline{text-align: center;}
+#mobile23 >a .wt{width: auto;}
+#mobile01 .wt{display: flex;justify-content: center;align-items: center;}
+.mobile04 ul li,.mobile25 ul li{display: flex;align-items: center;justify-content: center;}
+.col_kx{margin: 0 auto;}
