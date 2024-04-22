@@ -1,1 +1,0 @@
-(function(){var c3x=NEJ.P,a3x=c3x("nej.e"),h3x=c3x("nej.v"),F3x=c3x("nm.m"),N3x=c3x("nm.m"),b3x,L3x;F3x.bEW5b=NEJ.C();b3x=F3x.bEW5b.M3x(F3x.dm4q);b3x.bK4O=function(){this.bT4X()};a3x.cW4a("template-box");new N3x.bEW5b})()
