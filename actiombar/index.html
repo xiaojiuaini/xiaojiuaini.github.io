@@ -1,93 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft Title Bar Simulator</title>
-<style>
-  #output {
-    font-family: 'Courier New', Courier, monospace; /* 使用类似Minecraft字体的字体 */
-    white-space: pre-wrap; /* 保留换行符 */
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 100%;
-    max-width: 600px;
-    box-sizing: border-box;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Title Bar Simulator</title>
+    <style>
+        #input-area {
+            width: 100%;
+            height: 100px;
+            font-family: monospace;
+        }
+        #output-area {
+            white-space: pre-wrap;
+            font-family: monospace;
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        .transparent {
+            color: transparent;
+        }
+    </style>
 </head>
 <body>
+    <textarea id="input-area" placeholder="Enter Minecraft title/subtitle instructions here..."></textarea>
+    <div id="output-area"></div>
 
-<textarea id="input" placeholder="Enter your title or subtitle here..."></textarea>
-<button onclick="displayText()">Display</button>
-
-<div id="output"></div>
-
-<script>
-const colorCodes = {
-  '0': 'black',
-  '1': 'dark_gray',
-  '2': 'dark_green',
-  '3': 'dark_aqua',
-  '4': 'dark_red',
-  '5': 'dark_purple',
-  '6': 'gold',
-  '7': 'gray',
-  '8': 'dark_blue',
-  '9': 'light_purple',
-  'a': 'cyan',
-  'b': 'light_quartz',
-  'c': 'light_red',
-  'd': 'pink',
-  'e': 'yellow',
-  'f': 'white',
-  // 忽略非颜色代码
-  'k': '',
-  'l': '',
-  'm': '',
-  'n': '',
-  'o': '',
-  'r': ''
-};
-
-function applyColorCode(text) {
-  const regex = /§([0-9a-fr])/g;
-  return text.replace(regex, (match, code) => {
-    if (code in colorCodes) {
-      const color = colorCodes[code];
-      // 如果颜色代码后面紧跟空格或换行，则渲染为透明字符
-      if (/\s/.test(text[match.index + 2])) {
-        return `<span style="color: transparent;"> </span>`;
-      } else {
-        return `<span style="color: ${color};">`;
-      }
-    }
-    return match; // 如果不是颜色代码，则原样返回
-  });
-}
-
-function displayText() {
-  const inputElement = document.getElementById('input');
-  const outputElement = document.getElementById('output');
-  const inputText = inputElement.value;
-
-  // 处理换行符，将'\n'替换为HTML的换行标签
-  const processedText = inputText.replace(/\\n/g, '<br>');
-
-  // 应用颜色代码
-  const coloredText = applyColorCode(processedText);
-
-  // 清除旧的输出内容
-  outputElement.innerHTML = '';
-
-  // 创建新的span元素来包含带颜色的文本
-  const span = document.createElement('span');
-  span.innerHTML = coloredText;
-
-  // 将span元素添加到输出div中
-  outputElement.appendChild(span);
-}
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
