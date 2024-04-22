@@ -1,0 +1,38 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+}
+
+#actionBarDisplay {
+    font-family: 'Minecraft', monospace; /* 假设你有一个名为'Minecraft'的字体 */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    white-space: nowrap; /* 防止文本换行 */
+    overflow: hidden; /* 隐藏超出容器的文本 */
+}
+
+/* 模拟Minecraft颜色代码 */
+.color-0 { color: black; }
+.color-1 { color: dark_blue; }
+.color-2 { color: dark_green; }
+.color-3 { color: dark_aqua; }
+.color-4 { color: dark_red; }
+.color-5 { color: dark_purple; }
+.color-6 { color: gold; }
+.color-7 { color: gray; }
+.color-8 { color: dark_gray; }
+.color-9 { color: blue; }
+.color-a { color: green; }
+.color-b { color: aqua; }
+.color-c { color: red; }
+.color-d { color: light_purple; }
+.color-e { color: yellow; }
+.color-f { color: white; }
+
+/* ... 为其他颜色代码添加样式类 ... */
+
+/* 重置'l'颜色代码为亮色 */
+.color-l { font-weight: bold; }
