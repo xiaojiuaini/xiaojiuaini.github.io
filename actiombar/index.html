@@ -3,35 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft ActionBar Simulator</title>
+<title>Minecraft Title Bar Simulator</title>
 <style>
-  #inputArea {
+  #output {
+    font-family: 'Courier New', Courier, monospace; /* 使用类似Minecraft字体的字体 */
+    white-space: pre-wrap; /* 保留换行符 */
+    border: 1px solid #ccc;
+    padding: 10px;
     width: 100%;
-    height: 100px;
-    font-family: monospace;
-  }
-  #outputArea {
-    width: 100%;
-    white-space: pre-wrap;
-    font-family: monospace;
-    margin-top: 10px;
-  }
-  .transparent {
-    visibility: hidden;
+    max-width: 600px;
+    box-sizing: border-box;
   }
 </style>
 </head>
 <body>
 
-<textarea id="inputArea" placeholder="Enter your §-prefixed Minecraft commands..."></textarea>
-<div id="outputArea"></div>
+<textarea id="input" placeholder="Enter your title or subtitle here..."></textarea>
+<button onclick="displayText()">Display</button>
+
+<div id="output"></div>
 
 <script>
-const inputArea = document.getElementById('inputArea');
-const outputArea = document.getElementById('outputArea');
-
-// Map Minecraft color codes to CSS colors
-const colorMap = {
+const colorCodes = {
   '0': 'black',
   '1': 'dark_gray',
   '2': 'dark_green',
@@ -48,57 +41,52 @@ const colorMap = {
   'd': 'pink',
   'e': 'yellow',
   'f': 'white',
-  'k': 'magic',
-  'l': 'wave',
-  'm': 'strikethrough',
-  'n': 'underline',
-  'o': 'italic',
-  'r': 'reset'
+  // 忽略非颜色代码
+  'k': '',
+  'l': '',
+  'm': '',
+  'n': '',
+  'o': '',
+  'r': ''
 };
 
-inputArea.addEventListener('input', function() {
-  const text = inputArea.value;
-  let result = '';
-  let inSpan = false;
-  let spanColor = '';
-
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    if (char === '§') {
-      if (i + 1 < text.length) {
-        const nextChar = text[i + 1];
-        if (colorMap[nextChar]) {
-          spanColor = colorMap[nextChar];
-          result += '<span style="color: ' + spanColor + '">';
-          inSpan = true;
-          i++; // Skip the next character since it's part of the color code
-        } else if (nextChar === '1') {
-          // Transparent character
-          result += '<span class="transparent">';
-          inSpan = true;
-          i++; // Skip the next character since it's part of the transparent code
-        }
+function applyColorCode(text) {
+  const regex = /§([0-9a-fr])/g;
+  return text.replace(regex, (match, code) => {
+    if (code in colorCodes) {
+      const color = colorCodes[code];
+      // 如果颜色代码后面紧跟空格或换行，则渲染为透明字符
+      if (/\s/.test(text[match.index + 2])) {
+        return `<span style="color: transparent;"> </span>`;
+      } else {
+        return `<span style="color: ${color};">`;
       }
-    } else if (inSpan) {
-      result += char;
-    } else {
-      result += char;
     }
+    return match; // 如果不是颜色代码，则原样返回
+  });
+}
 
-    if (char === '§' && inSpan && (i + 1 >= text.length || !colorMap[text[i + 1]])) {
-      result += '</span>';
-      inSpan = false;
-    } else if (inSpan && (char === '\n' || char === '\r')) {
-      result += '</span>' + char + '<span style="color: ' + spanColor + '">';
-    }
-  }
+function displayText() {
+  const inputElement = document.getElementById('input');
+  const outputElement = document.getElementById('output');
+  const inputText = inputElement.value;
 
-  if (inSpan) {
-    result += '</span>';
-  }
+  // 处理换行符，将'\n'替换为HTML的换行标签
+  const processedText = inputText.replace(/\\n/g, '<br>');
 
-  outputArea.innerHTML = result;
-});
+  // 应用颜色代码
+  const coloredText = applyColorCode(processedText);
+
+  // 清除旧的输出内容
+  outputElement.innerHTML = '';
+
+  // 创建新的span元素来包含带颜色的文本
+  const span = document.createElement('span');
+  span.innerHTML = coloredText;
+
+  // 将span元素添加到输出div中
+  outputElement.appendChild(span);
+}
 </script>
 
 </body>
