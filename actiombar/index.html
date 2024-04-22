@@ -3,86 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft Title Bar Simulator</title>
+<title>Minecraft ActionBar Simulator</title>
 <style>
-  #output {
-    font-family: 'Courier New', Courier, monospace; /* 使用类似Minecraft的字体 */
-    white-space: pre-wrap; /* 保留空格和换行符 */
-    background-color: #111; /* 类似Minecraft的背景色 */
-    color: #fff; /* 文本颜色 */
-    padding: 10px; /* 内边距 */
-    box-sizing: border-box;
+  #inputArea {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    height: 100px;
+    font-family: monospace;
+  }
+  #outputArea {
+    width: 100%;
+    white-space: pre-wrap;
+    font-family: monospace;
+    margin-top: 10px;
+  }
+  .transparent {
+    visibility: hidden;
   }
 </style>
 </head>
 <body>
 
-<textarea id="input" placeholder="Enter your text here (use \n for newline)"></textarea>
-<button onclick="render()">Render</button>
-<div id="output"></div>
+<textarea id="inputArea" placeholder="Enter your §-prefixed Minecraft commands..."></textarea>
+<div id="outputArea"></div>
 
 <script>
-function render() {
-  const inputElement = document.getElementById('input');
-  const outputElement = document.getElementById('output');
-  
-  // 获取用户输入的文本
-  const text = inputElement.value;
-  
-  // 替换换行符
-  const processedText = text.replace(/\\n/g, '\n');
-  
-  // 处理Minecraft颜色代码
-  function processMinecraftColors(text) {
-    const colorCodes = {
-      '§0': 'black',
-      '§1': 'dark_blue',
-      '§2': 'dark_green',
-      '§3': 'dark_aqua',
-      '§4': 'dark_red',
-      '§5': 'dark_purple',
-      '§6': 'gold',
-      '§7': 'gray',
-      '§8': 'dark_gray',
-      '§9': 'blue',
-      '§a': 'green',
-      '§b': 'aqua',
-      '§c': 'red',
-      '§d': 'light_purple',
-      '§e': 'yellow',
-      '§f': 'white',
-      '§k': 'obfuscated', // Minecraft中的透明效果，但HTML中不支持，这里可以省略或特殊处理
-      '§l': 'bold', // 加粗，可以保留
-      '§m': 'strikethrough', // 删除线，可以保留
-      '§n': 'underline', // 下划线，可以保留
-      '§o': 'italic', // 斜体，可以保留
-      '§r': 'reset' // 重置颜色，可以保留
-    };
-    
-    return text.replace(/§([0-9a-fk-or])/gi, (match, p1) => {
-      const color = colorCodes[match];
-      if (color === 'obfuscated') {
-        // 透明效果在HTML中无法直接实现，这里可以不做处理或替换为其他效果
-        return '';
-      } else if (color === 'reset') {
-        // 重置颜色，这里我们可以清除之前的样式或返回原始文本
-        return '';
-      } else {
-        // 返回带有样式的span元素
-        return `<span style="color: ${color};">${match.slice(1)}</span>`;
+const inputArea = document.getElementById('inputArea');
+const outputArea = document.getElementById('outputArea');
+
+// Map Minecraft color codes to CSS colors
+const colorMap = {
+  '0': 'black',
+  '1': 'dark_gray',
+  '2': 'dark_green',
+  '3': 'dark_aqua',
+  '4': 'dark_red',
+  '5': 'dark_purple',
+  '6': 'gold',
+  '7': 'gray',
+  '8': 'dark_blue',
+  '9': 'light_purple',
+  'a': 'cyan',
+  'b': 'light_quartz',
+  'c': 'light_red',
+  'd': 'pink',
+  'e': 'yellow',
+  'f': 'white',
+  'k': 'magic',
+  'l': 'wave',
+  'm': 'strikethrough',
+  'n': 'underline',
+  'o': 'italic',
+  'r': 'reset'
+};
+
+inputArea.addEventListener('input', function() {
+  const text = inputArea.value;
+  let result = '';
+  let inSpan = false;
+  let spanColor = '';
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === '§') {
+      if (i + 1 < text.length) {
+        const nextChar = text[i + 1];
+        if (colorMap[nextChar]) {
+          spanColor = colorMap[nextChar];
+          result += '<span style="color: ' + spanColor + '">';
+          inSpan = true;
+          i++; // Skip the next character since it's part of the color code
+        } else if (nextChar === '1') {
+          // Transparent character
+          result += '<span class="transparent">';
+          inSpan = true;
+          i++; // Skip the next character since it's part of the transparent code
+        }
       }
-    });
+    } else if (inSpan) {
+      result += char;
+    } else {
+      result += char;
+    }
+
+    if (char === '§' && inSpan && (i + 1 >= text.length || !colorMap[text[i + 1]])) {
+      result += '</span>';
+      inSpan = false;
+    } else if (inSpan && (char === '\n' || char === '\r')) {
+      result += '</span>' + char + '<span style="color: ' + spanColor + '">';
+    }
   }
-  
-  // 应用颜色代码处理
-  const htmlText = processMinecraftColors(processedText);
-  
-  // 渲染到输出div中
-  outputElement.innerHTML = htmlText;
-}
+
+  if (inSpan) {
+    result += '</span>';
+  }
+
+  outputArea.innerHTML = result;
+});
 </script>
 
 </body>
