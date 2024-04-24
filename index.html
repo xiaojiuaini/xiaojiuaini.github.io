@@ -1,68 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regex Matcher from File</title>
-    <style>
-        .highlight {
-            background-color: yellow; /* 高亮颜色 */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex Matcher</title>
+<style>
+  .highlight {
+    background-color: yellow;
+  }
+</style>
 </head>
 <body>
-    <h1>Regex Matcher from File</h1>
-    <textarea id="text-input" rows="10" cols="50" placeholder="输入你的文本..."></textarea>
-    <br>
-    <select id="regex-select">
-        <!-- 正则表达式文件名将动态添加到这里 -->
-    </select>
-    <button onclick="matchText()">匹配</button>
-    <br>
-    <pre id="result-output"></pre>
+  <textarea id="inputText" rows="10" cols="50" placeholder="Enter your text here..."></textarea>
+  <button onclick="matchText()">Match Text</button>
+  <div id="results"></div>
 
-    <script>
-        // 加载正则表达式文件列表到<select>元素
-        function loadRegexFiles() {
-            const regexSelect = document.getElementById('regex-select');
-            // 假设正则表达式文件都位于同一目录下，且以.regex.txt结尾
-            fetch('/regexes/')
-                .then(response => response.text())
-                .then(data => {
-                    const lines = data.split('\n');
-                    lines.forEach(line => {
-                        const option = document.createElement('option');
-                        option.value = line;
-                        option.text = line;
-                        regexSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error loading regex files:', error);
-                });
+  <script>
+    function matchText() {
+      const inputText = document.getElementById('inputText').value;
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/match', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const results = JSON.parse(xhr.responseText);
+          const resultDiv = document.getElementById('results');
+          resultDiv.innerHTML = '';
+          results.forEach(result => {
+            const highlightedText = result.text.replace(result.match, '<span class="highlight">$&</span>');
+            resultDiv.innerHTML += `<p>${highlightedText}</p>`;
+          });
         }
-
-        // 匹配文本并高亮显示结果
-        function matchText() {
-            const textInput = document.getElementById('text-input').value;
-            const selectedRegex = document.getElementById('regex-select').value;
-            const regex = new RegExp(selectedRegex, 'gm'); // 'gm' 表示全局和多行匹配
-            const resultOutput = document.getElementById('result-output');
-
-            resultOutput.textContent = ''; // 清空之前的结果
-
-            if (regex.test(textInput)) {
-                const highlightedText = textInput.replace(regex, (match) => {
-                    return `<span class="highlight">${match}</span>`;
-                });
-                resultOutput.innerHTML = highlightedText;
-            } else {
-                resultOutput.textContent = '没有匹配项。';
-            }
-        }
-
-        // 页面加载完成后加载正则表达式文件列表
-        window.onload = loadRegexFiles;
-    </script>
+      };
+      xhr.send(JSON.stringify({ text: inputText }));
+    }
+  </script>
 </body>
 </html>
