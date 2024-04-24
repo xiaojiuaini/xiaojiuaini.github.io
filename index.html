@@ -1,58 +1,68 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>GitHub正则表达式文本匹配</title>  
-    <style>  
-        .highlight {  
-            background-color: yellow;  
-        }  
-    </style>  
-</head>  
-<body>  
-  
-<h1>GitHub正则表达式文本匹配</h1>  
-  
-<textarea id="inputText" rows="10" cols="50" placeholder="请输入多行文本..."></textarea>  
-<br>  
-<button onclick="fetchRegexAndMatch()">从GitHub获取并匹配正则表达式</button>  
-<br>  
-<div id="output"></div> 
-<script>  
-    async function fetchRegexAndMatch() {  
-        // 假设GitHub仓库的URL和正则表达式文件的路径是已知的  
-        const regexUrl = '/regexp.txt';  
-        const outputDiv = document.getElementById('output');  
-        const inputText = document.getElementById('inputText').value;  
-  
-        try {  
-            // 从GitHub获取正则表达式  
-            const response = await fetch(regexUrl);  
-            const regexText = await response.text();  
-            const regexPattern = new RegExp(regexText, 'g');  
-  
-            // 清空输出内容  
-            outputDiv.innerHTML = '';  
-  
-            // 执行匹配并高亮显示结果  
-            const highlightedText = inputText.replace(regexPattern, (match) => {  
-                const span = document.createElement('span');  
-                span.classList.add('highlight');  
-                span.textContent = match;  
-                outputDiv.appendChild(span);  
-                return ''; // 替换匹配项为空字符串，因为我们已将其添加到输出中  
-            });  
-  
-            // 追加剩余的文本（非匹配部分）  
-            outputDiv.insertAdjacentText('beforeend', highlightedText);  
-  
-        } catch (error) {  
-            console.error('Error fetching regex:', error);  
-            outputDiv.textContent = 'Error fetching regex from GitHub.';  
-        }  
-    }  
-</script>  
-  
-</body>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Matcher from File</title>
+    <style>
+        .highlight {
+            background-color: yellow; /* 高亮颜色 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Regex Matcher from File</h1>
+    <textarea id="text-input" rows="10" cols="50" placeholder="输入你的文本..."></textarea>
+    <br>
+    <select id="regex-select">
+        <!-- 正则表达式文件名将动态添加到这里 -->
+    </select>
+    <button onclick="matchText()">匹配</button>
+    <br>
+    <pre id="result-output"></pre>
+
+    <script>
+        // 加载正则表达式文件列表到<select>元素
+        function loadRegexFiles() {
+            const regexSelect = document.getElementById('regex-select');
+            // 假设正则表达式文件都位于同一目录下，且以.regex.txt结尾
+            fetch('/regexes/')
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split('\n');
+                    lines.forEach(line => {
+                        const option = document.createElement('option');
+                        option.value = line;
+                        option.text = line;
+                        regexSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading regex files:', error);
+                });
+        }
+
+        // 匹配文本并高亮显示结果
+        function matchText() {
+            const textInput = document.getElementById('text-input').value;
+            const selectedRegex = document.getElementById('regex-select').value;
+            const regex = new RegExp(selectedRegex, 'gm'); // 'gm' 表示全局和多行匹配
+            const resultOutput = document.getElementById('result-output');
+
+            resultOutput.textContent = ''; // 清空之前的结果
+
+            if (regex.test(textInput)) {
+                const highlightedText = textInput.replace(regex, (match) => {
+                    return `<span class="highlight">${match}</span>`;
+                });
+                resultOutput.innerHTML = highlightedText;
+            } else {
+                resultOutput.textContent = '没有匹配项。';
+            }
+        }
+
+        // 页面加载完成后加载正则表达式文件列表
+        window.onload = loadRegexFiles;
+    </script>
+</body>
 </html>
