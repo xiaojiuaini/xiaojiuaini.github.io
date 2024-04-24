@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # 读取服务器目录中的正则表达式文本文件
 def read_regex_from_file():
-    with open('regex_patterns.txt', 'r', encoding='utf-8') as file:
+    with open('regex.txt', 'r', encoding='utf-8') as file:
         return file.read().splitlines()
 
 # 匹配文本
