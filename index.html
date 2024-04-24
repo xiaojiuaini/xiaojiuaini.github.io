@@ -1,12 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>视频播放器</title>
-</head>
-<body>
-    <video width="640" height="360" controls>
-        <source src="VID_30091010_135802_430.mp4" type="video/mp4">
-        您的浏览器不支持Video标签。
-    </video>
-</body>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>GitHub正则表达式文本匹配</title>  
+    <style>  
+        .highlight {  
+            background-color: yellow;  
+        }  
+    </style>  
+</head>  
+<body>  
+  
+<h1>GitHub正则表达式文本匹配</h1>  
+  
+<textarea id="inputText" rows="10" cols="50" placeholder="请输入多行文本..."></textarea>  
+<br>  
+<button onclick="fetchRegexAndMatch()">从GitHub获取并匹配正则表达式</button>  
+<br>  
+<div id="output"></div> 
+<script>  
+    async function fetchRegexAndMatch() {  
+        // 假设GitHub仓库的URL和正则表达式文件的路径是已知的  
+        const regexUrl = 'https://github.com/xiaojiuaini/xiaojiuaini.github.io/blob/main/regexp.txt';  
+        const outputDiv = document.getElementById('output');  
+        const inputText = document.getElementById('inputText').value;  
+  
+        try {  
+            // 从GitHub获取正则表达式  
+            const response = await fetch(regexUrl);  
+            const regexText = await response.text();  
+            const regexPattern = new RegExp(regexText, 'g');  
+  
+            // 清空输出内容  
+            outputDiv.innerHTML = '';  
+  
+            // 执行匹配并高亮显示结果  
+            const highlightedText = inputText.replace(regexPattern, (match) => {  
+                const span = document.createElement('span');  
+                span.classList.add('highlight');  
+                span.textContent = match;  
+                outputDiv.appendChild(span);  
+                return ''; // 替换匹配项为空字符串，因为我们已将其添加到输出中  
+            });  
+  
+            // 追加剩余的文本（非匹配部分）  
+            outputDiv.insertAdjacentText('beforeend', highlightedText);  
+  
+        } catch (error) {  
+            console.error('Error fetching regex:', error);  
+            outputDiv.textContent = 'Error fetching regex from GitHub.';  
+        }  
+    }  
+</script>  
+  
+</body>  
 </html>
